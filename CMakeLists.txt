@@ -47,9 +47,9 @@ find_ups_product(gm2ringsim v3_04_00)
 find_ups_product( cetbuildtools v4_08_01 )
 
 # Load the ParaView stuff (ParaView_DIR is a magic cmake variable that tells find_package where to find build products for ParaView Catalyst)
-get_filename_component(ParaView_DIR "/home/gm2/buildCatalyst/build" REALPATH)
+get_filename_component(ParaView_DIR "/home/gm2/installParaViewNoRender/lib/cmake/paraview-5.1" REALPATH)
 set(USE_CATALYST ON CACHE BOOL "Link the simulation with Catalyst")
-find_package(ParaView 5.0 REQUIRED COMPONENTS vtkPVPythonCatalyst vtkFiltersSources)
+find_package(ParaView 5.1 REQUIRED COMPONENTS vtkPVPythonCatalyst vtkFiltersSources)
 include_directories(${PARAVIEW_INCLUDE_DIRS})
 add_definitions("-DUSE_CATALYST")
 
