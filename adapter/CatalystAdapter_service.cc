@@ -19,11 +19,11 @@
 #include <sstream>
 #include <unistd.h> // for sleep
 
-#include "gm2catalyst/adapter/CatalystAdapter_service.hh"
+#include "gm2viz/adapter/CatalystAdapter_service.hh"
 
 #include "cetlib/exception.h"
 
-namespace gm2catalyst {
+namespace gm2viz {
 
 CatalystAdapter::CatalystAdapter(fhicl::ParameterSet const &p,
                                  art::ActivityRegistry &iRegistry)
@@ -230,5 +230,5 @@ void CatalystAdapter::finalize() {
 
 } // Namespace
 
-using gm2catalyst::CatalystAdapter;
+using gm2viz::CatalystAdapter;
 DEFINE_ART_SERVICE(CatalystAdapter)

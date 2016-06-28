@@ -35,7 +35,7 @@
 class vtkDataObject;
 class vtkCPProcessor;
 
-namespace gm2catalyst {
+namespace gm2viz {
 
   class CatalystAdapter {
     
@@ -72,7 +72,7 @@ namespace gm2catalyst {
   };
 }
 
-using gm2catalyst::CatalystAdapter;
+using gm2viz::CatalystAdapter;
 DECLARE_ART_SERVICE(CatalystAdapter,LEGACY)
 
 

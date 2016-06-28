@@ -59,8 +59,8 @@ include(ArtMake)
 include(BuildPlugins)
 
 # ADD SOURCE CODE SUBDIRECTORIES HERE
-#add_subdirectory(adapter)
-#add_subdirectory(simviz)
+add_subdirectory(adapter)
+add_subdirectory(simviz)
 add_subdirectory(dumbEventDisplay)
 add_subdirectory(ups)
 
