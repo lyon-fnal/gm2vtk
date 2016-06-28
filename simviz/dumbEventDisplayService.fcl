@@ -1,0 +1,22 @@
+# FCL that runs the dumb event display using the service
+
+source : {
+    module_type: EmptyEvent
+    maxEvents: 50
+}
+
+services : {
+    RandomNumberGenerator : {}
+    CatalystAdapter : {}
+}
+
+physics : {
+    analyzers : {
+
+        dumbEventDisplay : {
+            module_type : dumbVTK                    
+       }
+    }
+
+    path1 : [dumbEventDisplay]
+}
