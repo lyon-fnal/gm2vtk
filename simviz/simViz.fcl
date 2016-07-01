@@ -1,0 +1,230 @@
+// Oct 14, 2013 : The point of this fcl file is to maintain the settings  
+// that best correspond to the production g-2 running. This means we use 
+// a muplus beam polarity at the downstream end of the inflector
+// All of the destructive beam monitor are removed from the system.
+//
+// Please maintain this file based on the best approximation of current 
+// design choices.
+//
+// Currently, particles are killed at the surface of the calorimeter
+
+
+#include "geom/world.fcl"
+#include "geom/arc.fcl"
+#include "geom/vac.fcl"
+#include "geom/station.fcl"
+#include "geom/calorimeter.fcl"
+#include "geom/collimator.fcl"
+#include "geom/quad.fcl"
+#include "geom/PGA.fcl"
+
+process_name: eventdisplay
+
+source: {
+  module_type : EmptyEvent
+  maxEvents   : 10
+}
+
+services: {
+
+  FileCatalogMetadata : {
+      applicationFamily  : "offline"
+      applicationName    : "gm2ringsim" 
+      applicationVersion : "v6_04_00"
+      fileType           : "mc"
+  }
+
+  message : {
+     debugModules : ["*"]
+     suppressInfo : []
+     
+     destinations : {
+       LogToConsole : {
+         type       : "cout"
+         threshold  : "INFO"
+       }
+       LogToFile : {
+         type      : "file"
+         filename  : "gm2ringsim_mdc0.log"
+         append    :  false
+         threshold : "INFO"
+       }
+     }
+  } // end of message services
+
+  user : {
+  
+    // Mandatory ArtG4 services
+    DetectorHolder         : {}
+    ActionHolder           : {}
+    PhysicsListHolder      : {}
+    RandomNumberGenerator  : {}
+    Gm2Constants           : {
+      //eMuon : 1.8e-19 //EDM in e.cm, comment out for default EDM=0
+    }
+    StorageFieldController : {}
+    TurnCounter            : {}
+
+    // Create coordinate frames in the various straw tracker components and calorimeters
+    CoordSystemsStore : {}
+
+    // Geometry
+    Geometry: {
+      world:        @local::world_geom
+      arc:          @local::arc_geom
+      vac:          @local::vac_geom
+      quad:         @local::quad_geom
+      station:      @local::station_geom
+      calorimeter:  @local::calorimeter_geom
+      collimator:   @local::collimator_geom
+      pga:          @local::PGA_geom
+    }
+
+    //---------------------------------
+    // Global simulation settings
+    //--------------------------------- 
+    // The SpinTracking class tells the 5 fields in the gm2ringsim if they should propogate the muon spin as it travels around the ring
+    // : Default settings are false/false for spinTrackingEnabled/edmTrackingEnabled. If you want to see a wiggle plot then set it to true
+    // : Default setting is Q = 1, which assume that you are injecting a positively charged muon (or pion or proton).
+    //
+    RunSettings : {
+       SpinTracking : {
+	   spinTrackingEnabled : false
+	   edmTrackingEnabled  : false
+	   Q   :  1
+	   Eta :  0
+	   Gm2 : -1
+       }
+    }
+
+    // Actions for the simulation
+    KillTracks: {
+      // Print level (none=0, some=1, more=2)
+      verbosity: 1
+
+      // Stacking action (see cut values below)
+      killElectrons:      true
+      killPositrons:      true
+      killPhotons:        true
+      killOpticalPhotons: true
+      killNeutrons:       true
+      killNeutrinos:      true
+
+      // Apply these cuts if above variables are true
+      electronPmin: 5 //MeV
+      positronPmin: 5 //MeV
+      photonEmin:   1 //MeV
+      opticalPhotonMinWavelength: 250 //nm
+      opticalPhotonMaxWavelength: 950 //nm
+
+      // Stepping action
+      tlocalMax:  500 //ns, "time since birth"
+      tglobalMax: 700 //microsecond, "lab time"
+    }
+
+    physicalVolumeStore : {}
+
+    Gm2PhysicsList: {
+       decayMode           : "sm"
+       physicsListName     : "FTFP_BERT"
+       cerenkovProcessMode : "lookup" // (tracking, lookup, comparison, none)
+    }
+
+    TrackingAction : {
+       name : "trackingAction"
+       StorePrimaryTrajectory           : true
+       StorePrimaryDaughterTrajectories : true
+       StoreOrphanTrajectories          : false
+    }
+
+    ClockAction: {}
+
+    // Gas gun with beam dynamics
+    GasGunBdyn: {
+      name: "gasGunBdyn"
+      verbosity: 1
+
+      // Particle distributions
+      tdistr: 989  //{0, 1, 2, 989} = {DELTA, FLAT, GAUS, E989}
+      xdistr: 2    //{0, 1, 2} = {DELTA, FLAT, GAUS}
+      ydistr: 2    //{0, 1, 2} = {DELTA, FLAT, GAUS}
+      pdistr: 2    //{0, 1, 2} = {DELTA, FLAT, GAUS}
+
+      // Distribution widths (see above)
+      twidth: 120  //ns
+      xwidth:  15  //mm
+      ywidth:  15  //mm
+      pwidth: 0.1  //percent
+
+      // Other stuff
+      quadFieldIndex: 0.175
+      AxCBO:       5 //mm
+      AyCBO:       0 //mm
+      tDecayMin:   0 //microsecond
+      tDecayMax: 700 //microsecond
+      infExitX:   77 //mm
+      infBetaX:  1.5 //m
+      infBetaY: 10.0 //m
+    }
+
+    // Detectors
+    //------------------------
+    World : {}	
+    Ring  : {}
+    Arc   : {
+       arc_which : [0]
+    }
+    VacuumChamberCadMesh: {}
+    //VacuumChamberTopCadMesh: {}
+    TrolleyRailCadMesh : {}
+    QuadCadMesh   : {}
+    QuadPlates    : {}
+    KickerCadMesh : {}
+    Station       : {}
+    Calorimeter : {
+       killAllParticles   : false
+       killOpticalPhotons : true // Using the lookup cerenkov process means this is ignored
+    }
+    Collimator   : {}
+
+    // Viz
+    CatalystAdapter : {}
+
+  } // end of user services
+} // end of services block
+
+
+physics: {
+   producers: {
+      artg4 : { 
+          module_type : artg4Main
+          enableVisualization : false
+          macroPath   : ".:./macros:../macros:../../macros"
+          visMacro    : "vis.mac"
+          afterEvent  : pass  // (ui, pause, pass)
+      }
+
+      randomsaver :  {
+         module_type : RandomNumberSaver
+      }
+   } // end of producers block
+
+   analyzers : {
+
+       simCalHitsToVTK : {
+           module_type : SimCalHitsToVTK
+       }
+
+       simStepsToVTK : {
+           module_type : SimStepsToVTK
+
+       }
+   }
+
+   path1   : [ randomsaver, artg4 ]
+   stream1 : [ simCalHitsToVTK ]
+
+   trigger_paths : [ path1 ]
+   end_paths     : [ stream1 ]
+} // end of phyiscs block
+
