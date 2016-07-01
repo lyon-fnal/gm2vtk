@@ -190,6 +190,8 @@ services: {
     // Viz
     CatalystAdapter : {}
 
+    keepStepsAction : {}
+
   } // end of user services
 } // end of services block
 
@@ -217,12 +219,11 @@ physics: {
 
        simStepsToVTK : {
            module_type : SimStepsToVTK
-
        }
    }
 
    path1   : [ randomsaver, artg4 ]
-   stream1 : [ simCalHitsToVTK ]
+   stream1 : [ simCalHitsToVTK, simStepsToVTK ]
 
    trigger_paths : [ path1 ]
    end_paths     : [ stream1 ]
