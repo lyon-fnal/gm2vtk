@@ -3,7 +3,7 @@
 # The *parent* line must the first non-commented line and defines this product and version
 # The version should be of the form vxx_yy_zz (e.g. v01_02_03)
 parent gm2viz v1_00_00
-defaultqual e7
+defaultqual e10
 
 # These optional lines define the installed directories where headers,
 # libraries, and executables will be found.
@@ -32,17 +32,17 @@ flcdir  product_dir     fcl
 # Add the dependent product and version
 
 product          version
-gm2ringsim      v3_04_00
-paraviewvtk     v5_1_0
-cetbuildtools   v4_08_01       -       only_for_build
+gm2ringsim      v4_00_00
+paraviewvtk     v5_1_2
+cetbuildtools   v5_04_02       -       only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # Make a table by adding columns before "notes". 
 qualifier	gm2ringsim paraviewvtk  notes
-e7:debug	e7:debug   e7:debug
-e7:opt	  	e7:opt     e7:opt
-e7:prof	  	e7:prof    e7:prof
+e10:debug	e10:debug   e10:debug
+e10:opt	  	e10:opt     e10:opt
+e10:prof	e10:prof    e10:prof
 end_qualifier_list
 
 # Preserve tabs and formatting in emacs and vi / vim:

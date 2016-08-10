@@ -9,27 +9,16 @@
 
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
-#include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
-#include "art/Utilities/InputTag.h"
-#include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
-#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "gm2viz/adapter/CatalystAdapter_service.hh"
 
 #include "gm2ringsim/debugging/GeantTrackRecord.hh"
 
-#include "vtkSmartPointer.h"
 #include "vtkMultiBlockDataSet.h"
 #include "vtkPolyData.h"
-#include "vtkPoints.h"
-#include "vtkCellArray.h"
 #include "vtkFloatArray.h"
-#include "vtkIntArray.h"
-#include "vtkStringArray.h"
 #include "vtkPointData.h"
 #include "vtkCellData.h"
 #include "vtkPolyLine.h"
@@ -75,6 +64,7 @@ void gm2viz::SimStepsToVTK::beginJob() {
   art::ServiceHandle<CatalystAdapter> adapter;
   adapter->registerVTKData(vtkDataName);
 }
+
 
 void gm2viz::SimStepsToVTK::analyze(art::Event const & e)
 {
