@@ -4,4 +4,4 @@ art_make( MODULE_LIBRARIES gm2viz_adapter_CatalystAdapter_service vtkPVPythonCat
 
 install_headers()
 install_source() 
-
+install_fhicl()

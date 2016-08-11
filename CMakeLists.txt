@@ -62,6 +62,7 @@ include(BuildPlugins)
 add_subdirectory(adapter)
 add_subdirectory(simviz)
 add_subdirectory(dumbEventDisplay)
+add_subdirectory(dumbEventDisplayNew)
 add_subdirectory(ups)
 
 # packaging utility

@@ -27,13 +27,6 @@ source: {
 
 services: {
 
-  FileCatalogMetadata : {
-      applicationFamily  : "offline"
-      applicationName    : "gm2ringsim" 
-      applicationVersion : "v6_04_00"
-      fileType           : "mc"
-  }
-
   message : {
      debugModules : ["*"]
      suppressInfo : []

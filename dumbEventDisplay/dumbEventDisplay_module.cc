@@ -120,6 +120,9 @@ void pvc::dumbEventDisplay::analyze(art::Event const & e)
     //std::cin.ignore();
     sleep(sleepSec_);
   }
+  else {
+    LOG_INFO("dumbEventDisplay") << "catalyst adapter reports not ready";
+  }
   
 }
 DEFINE_ART_MODULE(pvc::dumbEventDisplay)
