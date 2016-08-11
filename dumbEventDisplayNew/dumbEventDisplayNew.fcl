@@ -15,7 +15,14 @@ services: {
 physics : {
   producers : {
     makeCone : { module_type: Cone }
+    makeSphere : { module_type: Sphere }
   }
 
-  path1: [makeCone]
+  analyzers : {
+    showVizes : { module_type: ShowVtkVizObjectsInEvent }
+  }
+
+  path1: [makeCone, makeSphere]
+  endpaths: [showVizes]
+
 }

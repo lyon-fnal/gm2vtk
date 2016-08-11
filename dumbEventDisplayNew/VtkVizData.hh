@@ -21,7 +21,7 @@ public:
   // Root must have a default constructor
   VtkVizData() :
     mb_(nullptr),
-    name_("unknown")
+    name_("YOU_SHOULD_NEVER_SEE_THIS")
   {}
 
   VtkVizData(vtkSmartPointer<vtkMultiBlockDataSet> mb, const std::string name) :
@@ -34,11 +34,11 @@ public:
   /// Put my multiBlockDataSet into a perhaps bigger MultiblockDataSet at entry blockno
   /// \param mbToFill The multiBlockDataSet to insert into
   /// \param blockno The block number
-  void insertIntoMultiBlock(vtkSmartPointer<vtkMultiBlockDataSet> mbToFill, unsigned int blockno);
+  void insertIntoMultiBlock(vtkSmartPointer<vtkMultiBlockDataSet> mbToFill, unsigned int blockno) const;
 
   /// Get the name of this VtkVizData
   /// \return name of this VtkVizData (not necessarily the name of the multiblock dataset)
-  const std::string& name() { return name_; }
+  const std::string& name() const { return name_; }
 
 #endif
 
