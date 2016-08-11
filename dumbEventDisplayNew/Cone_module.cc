@@ -45,7 +45,7 @@ private:
 
   // Declare member data here.
   vtkSmartPointer<vtkPolyData> makeConeGrid() const;
-
+  vtkSmartPointer<vtkMultiBlockDataSet> makeMultiBlockForConeGrid(vtkSmartPointer<vtkPolyData> grid) const;
 };
 
 
@@ -59,15 +59,13 @@ gm2viz::Cone::Cone(fhicl::ParameterSet const & p)
 void gm2viz::Cone::produce(art::Event & e)
 {
 
+  // TODO: Add a way to check if a ParaView client is connected (needs to be consistent for all producers/analysers for this event)
+
   // Make the cone's grid
   auto grid = makeConeGrid();
 
-  // Make the multiblock dataset
-  vtkSmartPointer<vtkMultiBlockDataSet> mb = vtkSmartPointer<vtkMultiBlockDataSet>::New();
-  mb->SetNumberOfBlocks(1);
-  const unsigned int blockno = 0; // Need to do this so that GetMetaData below doesn't confuse 0 with a pointer
-  mb->SetBlock(blockno, grid);
-  mb->GetMetaData(blockno)->Set( vtkCompositeDataSet::NAME(), "Test cone");
+  // Make a multiblock dataset out of the cone grid
+  auto mb = makeMultiBlockForConeGrid(grid);
 
   // Put it into the event
   std::unique_ptr<gm2viz::VtkVizData> vizVtkData = std::make_unique<gm2viz::VtkVizData>(mb, "fromConeModule");
@@ -89,5 +87,20 @@ vtkSmartPointer<vtkPolyData> gm2viz::Cone::makeConeGrid() const {
   vtkSmartPointer<vtkPolyData> grid = cone->GetOutput();
   return grid;
 }
+
+/// Generate a MultiBlockDataSet from the cone's grid
+/// \param grid The cone's grid (vtkPolyData)
+/// \return The MultoBlockDataSet
+vtkSmartPointer<vtkMultiBlockDataSet> gm2viz::Cone::makeMultiBlockForConeGrid(vtkSmartPointer<vtkPolyData> grid) const {
+
+  // Make the multiblock dataset
+  vtkSmartPointer<vtkMultiBlockDataSet> mb = vtkSmartPointer<vtkMultiBlockDataSet>::New();
+  mb->SetNumberOfBlocks(1);
+  const unsigned int blockno = 0; // Need to do this so that GetMetaData below doesn't confuse 0 with a pointer
+  mb->SetBlock(blockno, grid);
+  mb->GetMetaData(blockno)->Set(vtkCompositeDataSet::NAME(), "Test cone");
+  return mb;
+}
+
 
 DEFINE_ART_MODULE(gm2viz::Cone)
