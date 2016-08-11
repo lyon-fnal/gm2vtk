@@ -6,7 +6,7 @@
 // Generated at Thu Aug 11 01:29:04 2016 by me using cetskelgen
 // from cetlib version v1_19_00.
 //
-// Make a VtkMultiblock dataset and put a cube in it.
+// A PRODUCER to put a MultiBlock data set representing a cone into the event
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"

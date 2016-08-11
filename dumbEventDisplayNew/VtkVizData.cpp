@@ -2,7 +2,7 @@
 // Created by Adam Lyon on 8/11/16.
 //
 
-#include "gm2viz/dumbEventDisplayNew/VtkVizData.hh"
+#include "VtkVizData.hh"
 #include "vtkInformation.h"
 
 void gm2viz::VtkVizData::insertIntoMultiBlock(vtkSmartPointer<vtkMultiBlockDataSet> mbToFill, unsigned int blockno) {

@@ -14,7 +14,7 @@ namespace gm2viz {
   class VtkVizData;
 }
 
-/// This is a transient object to hold Vtk visualization data (generally a VTKMultiBlockDataSet and a name
+/// This is a transient object to hold Vtk visualization data (generally a VTKMultiBlockDataSet and a name)
 class gm2viz::VtkVizData {
 public:
   VtkVizData(vtkSmartPointer<vtkMultiBlockDataSet> mb, const std::string name) :

@@ -2,7 +2,7 @@
 
 art_make( MODULE_LIBRARIES
           vtkPVPythonCatalyst
-          gm2viz_dumbEventDisplayNew )
+          gm2viz_dumbEventDisplayNew)
 
 install_headers()
 install_source()

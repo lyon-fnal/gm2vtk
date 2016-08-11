@@ -1,0 +1,21 @@
+# Simple FCL for a dumb event display
+
+process: "dumbEventDisplayNew"
+
+source : {
+  module_type: EmptyEvent
+  maxEvents: 100
+}
+
+services: {
+  # Load the RandomNumberGenerator service without any options
+  RandomNumberGenerator: {}
+}
+
+physics : {
+  producers : {
+    makeCone : { module_type: Cone }
+  }
+
+  path1: [makeCone]
+}
