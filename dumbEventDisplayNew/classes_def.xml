@@ -1,3 +1,4 @@
 <lcgdict>
     <class name="gm2viz::VtkVizData" persistent="false"/>
+    <class name="art::Wrapper<gm2viz::VtkVizData>"/>
 </lcgdict>

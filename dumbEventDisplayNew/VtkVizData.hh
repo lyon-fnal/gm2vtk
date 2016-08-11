@@ -17,12 +17,17 @@ namespace gm2viz {
 /// This is a transient object to hold Vtk visualization data (generally a VTKMultiBlockDataSet and a name)
 class gm2viz::VtkVizData {
 public:
+
+  // Root must have a default constructor
+  VtkVizData() :
+    mb_(nullptr),
+    name_("unknown")
+  {}
+
   VtkVizData(vtkSmartPointer<vtkMultiBlockDataSet> mb, const std::string name) :
       mb_(mb),
       name_(name)
   {}
-
-
 
 #ifndef __ROOTCLING__
 
