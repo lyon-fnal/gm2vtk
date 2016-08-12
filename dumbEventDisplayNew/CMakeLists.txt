@@ -1,8 +1,12 @@
 # basic source code CMakeLists.txt
 
 art_make( MODULE_LIBRARIES
-          vtkPVPythonCatalyst
-          gm2viz_dumbEventDisplayNew)
+            vtkPVPythonCatalyst
+            gm2viz_dumbEventDisplayNew
+          SERVICE_LIBRARIES
+            vtkPVPythonCatalyst
+            gm2viz_dumbEventDisplayNew
+          )
 
 install_headers()
 install_source()

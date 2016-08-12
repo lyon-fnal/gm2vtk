@@ -78,6 +78,7 @@ gm2viz::Cone::Cone(fhicl::ParameterSet const & p) :
 
 void gm2viz::Cone::produce(art::Event & e)
 {
+  LOG_INFO("Cone") << "Making cones";
 
   // Create the multiblockdataset
   vtkSmartPointer<vtkMultiBlockDataSet> mb = vtkSmartPointer<vtkMultiBlockDataSet>::New();

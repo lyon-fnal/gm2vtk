@@ -77,6 +77,8 @@ gm2viz::Sphere::Sphere(fhicl::ParameterSet const & p) :
 
 void gm2viz::Sphere::produce(art::Event & e)
 {
+  LOG_INFO("Sphere") << "Making Spheres";
+
   // Make the Sphere's grid
   auto grid = makeSphereGrid();
 

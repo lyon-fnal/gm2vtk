@@ -10,6 +10,8 @@ source : {
 services: {
   # Load the RandomNumberGenerator service without any options
   RandomNumberGenerator: {}
+
+  CatalystLive: {}
 }
 
 physics : {
@@ -20,9 +22,13 @@ physics : {
 
   analyzers : {
     showVizes : { module_type: ShowVtkVizObjectsInEvent }
+
+    liveVtk : {
+      module_type: CatalystLiveVtkViz
+    }
   }
 
   path1: [makeCone, makeSphere]
-  endpaths: [showVizes]
+  endpaths: [showVizes, liveVtk]
 
 }
