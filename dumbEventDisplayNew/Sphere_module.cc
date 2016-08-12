@@ -24,6 +24,9 @@
 
 #include "gm2viz/dumbEventDisplayNew/VtkVizData.hh"
 
+#include "CLHEP/Random/RandFlat.h"
+#include "CLHEP/Random/RandGaussQ.h"
+
 namespace gm2viz {
   class Sphere;
 }
@@ -47,15 +50,20 @@ public:
 private:
 
   // Declare member data here.
-  vtkSmartPointer<vtkPolyData> makeSphereGrid() const;
+  vtkSmartPointer<vtkPolyData> makeSphereGrid();
   vtkSmartPointer<vtkMultiBlockDataSet> makeMultiBlockForSphereGrid(vtkSmartPointer<vtkPolyData> grid) const;
 
   std::string myName_;
+
+  CLHEP::HepRandomEngine& engine_;  // this can be a reference because it is created by createEngine, which returns a ref
+  CLHEP::RandFlat flatGen_;  // this cannot be a reference, because we create it with its c'tor
+
 };
 
-
 gm2viz::Sphere::Sphere(fhicl::ParameterSet const & p) :
-  myName_("SHOULD_NEVER_SEE_THIS")
+  myName_("SHOULD_NEVER_SEE_THIS"),
+  engine_( createEngine(get_seed_value(p))),
+  flatGen_( engine_ )
 {
 
   // Declare that we're making a VtkVizData
@@ -82,16 +90,18 @@ void gm2viz::Sphere::produce(art::Event & e)
 
 /// Create a Sphere and return its vtkPolyData grid
 /// \return The vtkPolyData grid representing the Sphere
-vtkSmartPointer<vtkPolyData> gm2viz::Sphere::makeSphereGrid() const {
+vtkSmartPointer<vtkPolyData> gm2viz::Sphere::makeSphereGrid()  {
 
   // Make the Sphere
-  auto Sphere = vtkSmartPointer<vtkSphereSource>::New();
-  Sphere->SetRadius(90);
-  Sphere->SetPhiResolution(50);
-  Sphere->Update();
+  auto sphere = vtkSmartPointer<vtkSphereSource>::New();
+  sphere->SetCenter( flatGen_.fire()*500.0, flatGen_.fire()*500.0, flatGen_.fire()*500.0 );
+  sphere->SetRadius( flatGen_.fire()*100.0 );
+  sphere->SetThetaResolution( flatGen_.fire()*100.0 );
+  sphere->SetPhiResolution( flatGen_.fire()*100.0 );
+  sphere->Update();
 
   // Make the polydata
-  vtkSmartPointer<vtkPolyData> grid = Sphere->GetOutput();
+  vtkSmartPointer<vtkPolyData> grid = sphere->GetOutput();
   return grid;
 }
 

@@ -5,17 +5,14 @@
 //
 // Generated at Thu Aug 11 15:07:23 2016 by me using cetskelgen
 // from cetlib version v1_19_00.
+//
+// Analyzer to show the names of the VtkVizData objects in the event
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
-#include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
-#include "canvas/Utilities/InputTag.h"
-#include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include "gm2viz/dumbEventDisplayNew/VtkVizData.hh"
 

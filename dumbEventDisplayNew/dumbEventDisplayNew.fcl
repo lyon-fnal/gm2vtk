@@ -20,9 +20,13 @@ physics : {
 
   analyzers : {
     showVizes : { module_type: ShowVtkVizObjectsInEvent }
+    writeVtk : {
+      module_type: WriteVtkVizData
+      baseFileName: "mbout"
+    }
   }
 
   path1: [makeCone, makeSphere]
-  endpaths: [showVizes]
+  endpaths: [showVizes, writeVtk]
 
 }
