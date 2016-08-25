@@ -44,9 +44,10 @@ cet_report_compiler_flags()
 # these are minimum required versions, not the actual product versions
 find_ups_product(art v1_13_01)
 find_ups_product(gm2ringsim v3_04_00)
+find_uos_product( artvtk v1_00_00 )
 find_ups_product( cetbuildtools v4_08_01 )
 
-# Load the ParaView stuff (ParaView_DIR is a magic cmake variable that tells find_package where to find build products for ParaView Catalyst)
+Load the ParaView stuff (ParaView_DIR is a magic cmake variable that tells find_package where to find build products for ParaView Catalyst)
 get_filename_component(ParaView_DIR "$ENV{PARAVIEW_FQ_DIR}/lib/cmake/paraview-5.1" REALPATH)
 set(USE_CATALYST ON CACHE BOOL "Link the simulation with Catalyst")
 find_package(ParaView 5.1 REQUIRED COMPONENTS vtkPVPythonCatalyst vtkFiltersSources)

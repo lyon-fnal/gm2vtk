@@ -33,13 +33,13 @@ flcdir  product_dir     fcl
 
 product          version
 gm2ringsim      v4_00_00
-paraviewvtk     v5_1_2
+artvtk          v1_00_00
 cetbuildtools   v5_04_02       -       only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
 # Make a table by adding columns before "notes". 
-qualifier	gm2ringsim paraviewvtk  notes
+qualifier	gm2ringsim  artvtk  notes
 e10:debug	e10:debug   e10:debug
 e10:opt	  	e10:opt     e10:opt
 e10:prof	e10:prof    e10:prof

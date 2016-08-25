@@ -141,7 +141,7 @@ void gm2viz::SimStepsToVTK::analyze(art::Event const & e)
       for ( auto aStep : aTrk.steps() ) {
       
         // Set the position
-        vtkIdType pid = pts->InsertNextPoint(&(aStep.pos()[0]));  // Returns the position in the point array
+        vtkIdType pid = pts->InsertNextPoint(&aStep.pos()[0]);  // Returns the position in the point array
         
         // Fill point arrays
         globalStep->InsertNextValue( aStep.globalStepNum() );

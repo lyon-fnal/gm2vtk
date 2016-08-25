@@ -12,7 +12,7 @@
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 
-#include "gm2viz/adapter/CatalystAdapter_service.hh"
+#include "artvtk/artvtk/VtkVizData.hh"
 
 #include "gm2ringsim/calo/CaloArtRecord.hh"
 
@@ -40,13 +40,12 @@ public:
   SimCalHitsToVTK & operator = (SimCalHitsToVTK &&) = delete;
 
   // Required functions.
-  void beginJob() override;
   void analyze(art::Event const & e) override;
-
 
 private:
 
   std::string caloArtRecordInputTag_;
+  std::string myName_;
   
 };
 
@@ -54,14 +53,9 @@ private:
 gm2viz::SimCalHitsToVTK::SimCalHitsToVTK(fhicl::ParameterSet const & p)
   :
   EDAnalyzer(p),
-  caloArtRecordInputTag_( p.get<std::string>("caloArtRecordInputTag", "artg4:calorimeter") )
+  caloArtRecordInputTag_( p.get<std::string>("caloArtRecordInputTag", "artg4:calorimeter") ),
+  myName_("SHOULD NEVER SEE THIS")
 {}
-
-void gm2viz::SimCalHitsToVTK::beginJob() {
-  // Get the CatalystAdapter service and register
-  art::ServiceHandle<CatalystAdapter> adapter;
-  adapter->registerVTKData(vtkDataName);
-}
 
 void gm2viz::SimCalHitsToVTK::analyze(art::Event const & e)
 {
@@ -146,8 +140,6 @@ void gm2viz::SimCalHitsToVTK::analyze(art::Event const & e)
   grid->GetPointData()->AddArray(p);
   
   // Give this to the adapter service
-  art::ServiceHandle<CatalystAdapter> adapter;
-  adapter->giveVTKData(vtkDataName, grid);
 }
 
 DEFINE_ART_MODULE(gm2viz::SimCalHitsToVTK)
